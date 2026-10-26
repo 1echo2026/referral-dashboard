@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>专项明细表 · 转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <span class="brand-name" id="brandName">转介绍数据看板</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link" href="/#overview">总览</a>
+        <a class="nav-link" href="/#compare" id="compareNav">基地对比</a>
+        <a class="nav-link active" href="/tables">专项明细</a>
+        <a class="nav-link" href="/rankings" id="rankingsNav">业绩排行</a>
+        <a class="nav-link" href="/records">明细名单</a>
+      </nav>
+      <div class="header-user">
+        <span class="meta-chip viewer-chip" id="viewerChip">—</span>
+        <a class="header-action" href="/admin" id="adminLink">后台管理</a>
+        <button class="header-action" id="logoutBtn" type="button">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title" id="pageTitle">专项明细表</h1>
+        <p class="page-sub" id="pageSubtitle">按业务场景查看 4 类转介绍名单明细</p>
+      </div>
+      <div class="head-meta">
+        <span class="meta-chip"><span class="dot"></span><span id="updatedAt">—</span></span>
+      </div>
+    </div>
+
+    <div id="globalError" class="error-banner hidden"></div>
+
+    <div class="table-tabs" id="tableTabs">
+      <button class="table-tab active" type="button" data-key="direct-unconverted">表1 · 销售直推未转化 <span class="tab-count" id="count-direct">—</span></button>
+      <button class="table-tab" type="button" data-key="assigned-leads">表2 · 分配 leads 未转化 <span class="tab-count" id="count-assigned">—</span></button>
+      <button class="table-tab" type="button" data-key="high-potential">表3 · 高潜老用户 <span class="tab-count" id="count-high">—</span></button>
+      <button class="table-tab" type="button" data-key="diamond-unused">表4 · 钻石未消耗 <span class="tab-count" id="count-diamond">—</span></button>
+    </div>
+
+    <div class="sheet-card" id="sheetCard">
+      <div class="sheet-titlebar" id="sheetTitlebar">
+        <div class="sheet-title" id="sheetTitle">加载中…</div>
+        <div class="sheet-tag" id="sheetTag"></div>
+      </div>
+      <div class="sheet-note" id="sheetNote"></div>
+      <div class="sheet-scroll">
+        <table class="sheet-table" id="sheetTable">
+          <thead id="sheetHead"></thead>
+          <tbody id="sheetBody"><tr><td><div class="skeleton skeleton-line"></div></td></tr></tbody>
+        </table>
+      </div>
+      <div class="sheet-foot" id="sheetFoot">—</div>
+    </div>
+
+    <footer class="page-foot">
+      <div>专项明细表按业务场景展示，数据随后台发布版本更新；基地账号仅展示本基地数据。</div>
+    </footer>
+  </main>
+
+  <script src="/assets/tables.js"></script>
+</body>
+</html>

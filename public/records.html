@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>明细名单 · 转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <span class="brand-name" id="brandName">转介绍数据看板</span>
+        <span class="brand-sub">基地经营</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link" href="/#overview">总览</a>
+        <a class="nav-link" href="/#compare" id="compareNav">基地对比</a>
+        <a class="nav-link" href="/tables">专项明细</a>
+        <a class="nav-link" href="/rankings" id="rankingsNav">业绩排行</a>
+        <a class="nav-link active" href="/records">明细名单</a>
+      </nav>
+      <div class="header-user">
+        <span class="meta-chip viewer-chip" id="viewerChip">—</span>
+        <a class="header-action" href="/admin" id="adminLink" title="进入后台">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1.1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg>
+        <span>后台管理</span>
+        </a>
+        <button class="header-action" id="logoutBtn" type="button" title="退出登录">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">明细名单</h1>
+        <p class="page-sub">前台仅展示已发布数据，姓名与手机号已脱敏</p>
+      </div>
+      <div class="head-meta">
+        <span class="meta-chip"><span class="dot"></span><span id="updatedAt">—</span></span>
+        <span class="meta-chip" id="versionChip">版本 —</span>
+      </div>
+    </div>
+
+    <div id="globalError" class="error-banner hidden"></div>
+
+    <div class="filter-bar">
+      <div class="field" id="baseFilterField">
+        <label for="baseFilter">基地</label>
+        <select class="control" id="baseFilter"><option value="all">全部基地</option></select>
+      </div>
+      <div class="field">
+        <label for="sourceFilter">来源</label>
+        <select class="control" id="sourceFilter">
+          <option value="all">全部来源</option>
+          <option value="新用户直推未转化">新用户直推未转化</option>
+          <option value="高潜老用户">高潜老用户</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="statusFilter">状态</label>
+        <select class="control" id="statusFilter">
+          <option value="all">全部状态</option>
+          <option value="待跟进">待跟进</option>
+          <option value="跟进中">跟进中</option>
+          <option value="已转化">已转化</option>
+          <option value="暂缓">暂缓</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="searchInput">搜索</label>
+        <input class="control search" id="searchInput" type="search" placeholder="姓名 / 手机 / 负责人 / 标签">
+      </div>
+      <div class="filter-spacer"></div>
+      <button class="btn btn-sm" id="resetFilters" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        重置
+      </button>
+      <button class="btn btn-sm" id="exportBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+        导出当前结果
+      </button>
+    </div>
+
+    <div class="records-toolbar">
+      <span class="records-summary" id="summary">加载中…</span>
+      <span class="spacer"></span>
+      <span class="records-summary">点击任意行查看详情</span>
+    </div>
+
+    <div class="table-card">
+      <div class="table-wrap">
+        <table class="data-table" id="recordsTable">
+          <thead>
+            <tr>
+              <th data-col="base">基地</th>
+              <th data-col="customer">客户</th>
+              <th data-col="phone">手机号</th>
+              <th data-col="source">来源</th>
+              <th data-col="owner">负责人</th>
+              <th data-col="status">状态</th>
+              <th data-col="createdAt">创建日期</th>
+              <th data-col="lastFollowUp">最近跟进</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="8"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <span id="pageInfo">—</span>
+        <div class="pager" id="pager"></div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <div id="dataNote">数据来源于基地转介绍名单，前台仅展示已发布版本；姓名与手机号已脱敏。</div>
+      <div>转介绍数据看板 · 前台只读 · 数据更新请进入后台</div>
+    </footer>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <h2 class="drawer-title" id="drawerTitle">名单详情</h2>
+        <div class="drawer-sub" id="drawerSub">—</div>
+      </div>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m18 6-12 12M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+
+  <script src="/assets/records.js"></script>
+</body>
+</html>

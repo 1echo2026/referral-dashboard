@@ -1,0 +1,13 @@
+services:
+  dashboard:
+    build: .
+    container_name: referral-dashboard
+    restart: unless-stopped
+    ports:
+      - "4310:4310"
+    environment:
+      PORT: "4310"
+      HOST: "0.0.0.0"
+      # SESSION_SECRET: "请替换为至少 24 位的随机字符串"
+    volumes:
+      - ./data:/app/data

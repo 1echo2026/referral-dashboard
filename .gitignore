@@ -1,0 +1,10 @@
+node_modules/
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/.session-secret
+data/base-accounts.csv
+.cowork-temp/
+.env
+*.log
+.DS_Store

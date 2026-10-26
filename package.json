@@ -1,0 +1,26 @@
+{
+  "name": "referral-dashboard",
+  "version": "1.0.0",
+  "description": "多基地转介绍数据看板：公网只读前台 + 管理后台",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "reset-admin": "node scripts/reset-admin.js",
+    "migrate-eight": "node scripts/migrate-eight-bases.js"
+  },
+  "keywords": [
+    "dashboard",
+    "referral",
+    "sqlite"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

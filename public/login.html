@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>基地登录 · 转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <div>
+          <div style="font-weight:650">转介绍数据看板</div>
+          <div class="text-muted text-sm">基地账号登录</div>
+        </div>
+      </div>
+      <h1 class="auth-title">登录查看本基地数据</h1>
+      <p class="auth-sub">每个基地账号只能查看自己基地的看板与名单。</p>
+      <form class="auth-form" id="loginForm" autocomplete="on">
+        <div class="form-field">
+          <label for="loginUser">账号</label>
+          <input class="control" id="loginUser" name="username" autocomplete="username" placeholder="请输入基地账号" required>
+        </div>
+        <div class="form-field">
+          <label for="loginPass">密码</label>
+          <input class="control" id="loginPass" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
+        </div>
+        <div id="loginError" class="auth-error hidden"></div>
+        <button class="btn btn-primary" id="loginSubmit" type="submit" style="height:40px;margin-top:2px">登录</button>
+      </form>
+      <div class="auth-foot">
+        管理员请前往 <a href="/admin" style="color:var(--primary)">后台登录</a><br>
+        账号由管理员统一分配，如忘记密码请联系管理员重置。
+      </div>
+    </div>
+  </div>
+  <script src="/assets/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/>
+          </svg>
+        </span>
+        <span class="brand-name" id="brandName">转介绍数据看板</span>
+        <span class="brand-sub">基地经营</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link active" href="#overview" data-view="overview">总览</a>
+        <a class="nav-link" href="#compare" data-view="compare" id="compareNav">基地对比</a>
+        <a class="nav-link" href="/tables">专项明细</a>
+        <a class="nav-link" href="/rankings" id="rankingsNav">业绩排行</a>
+        <a class="nav-link" href="/records">明细名单</a>
+      </nav>
+      <div class="header-user">
+        <span class="meta-chip viewer-chip" id="viewerChip">—</span>
+        <a class="header-action" href="/admin" id="adminLink" title="进入后台">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1.1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg>
+          <span>后台管理</span>
+        </a>
+        <button class="header-action" id="logoutBtn" type="button" title="退出登录">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div id="globalError" class="error-banner hidden"></div>
+    <div id="announcement" class="notice hidden"></div>
+
+    <section id="view-overview">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title" id="pageTitle">转介绍总览</h1>
+          <p class="page-sub" id="pageSubtitle">2026 年基地转介绍 · 新用户直推未转化 + 高潜老用户</p>
+        </div>
+        <div class="head-meta">
+          <span class="meta-chip"><span class="dot"></span><span id="updatedAt">数据加载中</span></span>
+          <span class="meta-chip" id="versionChip">版本 —</span>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="field" id="baseFilterField">
+          <label for="baseFilter">基地</label>
+          <select class="control" id="baseFilter"><option value="all">全部基地</option></select>
+        </div>
+        <div class="field">
+          <label for="rangeFilter">时间</label>
+          <select class="control" id="rangeFilter">
+            <option value="all">全部时间</option>
+            <option value="30">近 30 天</option>
+            <option value="90">近 90 天</option>
+            <option value="year">2026 年</option>
+            <option value="custom">自定义</option>
+          </select>
+        </div>
+        <div class="field hidden" id="fromField">
+          <label for="fromFilter">开始</label>
+          <input class="control" type="date" id="fromFilter">
+        </div>
+        <div class="field hidden" id="toField">
+          <label for="toFilter">结束</label>
+          <input class="control" type="date" id="toFilter">
+        </div>
+        <div class="field">
+          <label for="sourceFilter">来源</label>
+          <select class="control" id="sourceFilter">
+            <option value="all">全部来源</option>
+            <option value="新用户直推未转化">新用户直推未转化</option>
+            <option value="高潜老用户">高潜老用户</option>
+          </select>
+        </div>
+        <div class="filter-spacer"></div>
+        <button class="btn btn-sm" id="resetFilters" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          重置
+        </button>
+      </div>
+
+      <div class="kpi-grid" id="kpiGrid">
+        <div class="skeleton skeleton-kpi"></div>
+        <div class="skeleton skeleton-kpi"></div>
+        <div class="skeleton skeleton-kpi"></div>
+        <div class="skeleton skeleton-kpi"></div>
+        <div class="skeleton skeleton-kpi"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">名单趋势</h2>
+              <p class="panel-sub">按月份统计新增名单与已转化数量</p>
+            </div>
+            <div class="panel-tools"><span id="trendTotal">—</span></div>
+          </div>
+          <div class="chart-wrap" id="trendChart"><div class="chart-empty">加载中…</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">来源结构</h2>
+              <p class="panel-sub">两类名单的占比</p>
+            </div>
+          </div>
+          <div id="sourceChart"><div class="chart-empty">加载中…</div></div>
+        </div>
+      </div>
+
+      <div class="grid-2 equal">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">基地名单量</h2>
+              <p class="panel-sub">按基地汇总当前筛选范围</p>
+            </div>
+          </div>
+          <div id="baseChart"><div class="chart-empty">加载中…</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">负责人 Top 8</h2>
+              <p class="panel-sub">按名单量排序，颜色越深转化率越高</p>
+            </div>
+          </div>
+          <div id="ownerChart"><div class="chart-empty">加载中…</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">基地-负责人下钻</h2>
+            <p class="panel-sub">点击基地展开负责人明细</p>
+          </div>
+          <div class="panel-tools" id="drillSummary">—</div>
+        </div>
+        <div class="drilldown" id="drilldown"><div class="chart-empty">加载中…</div></div>
+      </div>
+    </section>
+
+    <section id="view-compare" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">基地对比</h1>
+          <p class="page-sub">同一口径下比较各基地的名单规模、结构与转化表现</p>
+        </div>
+        <div class="head-meta">
+          <span class="meta-chip"><span class="dot"></span><span id="compareUpdated">—</span></span>
+        </div>
+      </div>
+      <div class="base-grid" id="baseGrid"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">基地指标明细</h2>
+            <p class="panel-sub">转化率 = 已转化 / 名单总量</p>
+          </div>
+          <div class="panel-tools"><a class="btn btn-sm" href="/records">查看明细名单</a></div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="compareTable">
+            <thead>
+              <tr>
+                <th>基地</th>
+                <th>名单总量</th>
+                <th>新用户直推未转化</th>
+                <th>高潜老用户</th>
+                <th>已转化</th>
+                <th>转化率</th>
+                <th>负责人数</th>
+              </tr>
+            </thead>
+            <tbody><tr><td colspan="7"><div class="skeleton skeleton-line"></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-foot">
+      <div id="dataNote">数据来源于基地转介绍名单，前台仅展示已发布版本；姓名与手机号已脱敏。</div>
+      <div>转介绍数据看板 · 前台只读 · 数据更新请进入后台</div>
+    </footer>
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

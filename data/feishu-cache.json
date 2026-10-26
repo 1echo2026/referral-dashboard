@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "syncedAt": "2026-10-26T06:43:27.010Z",
+  "tables": {
+    "direct-unconverted": [],
+    "assigned-leads": [
+      {
+        "baseName": "未分配"
+      },
+      {
+        "baseName": "未分配"
+      }
+    ],
+    "high-potential": [],
+    "diamond-unused": []
+  },
+  "rankings": {
+    "consultant": [],
+    "supervisor": [],
+    "leader": []
+  },
+  "counts": {
+    "tables": {
+      "direct-unconverted": 0,
+      "assigned-leads": 2,
+      "high-potential": 0,
+      "diamond-unused": 0
+    },
+    "rankings": {
+      "consultant": 0,
+      "supervisor": 0,
+      "leader": 0
+    }
+  }
+}

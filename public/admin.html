@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>管理后台 · 转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="admin-body">
+  <div id="authView" class="auth-wrap hidden">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <div>
+          <div style="font-weight:650">转介绍数据看板</div>
+          <div class="text-muted text-sm">管理后台</div>
+        </div>
+      </div>
+      <h1 class="auth-title" id="authTitle">登录后台</h1>
+      <p class="auth-sub" id="authSub">使用管理员账号登录，维护数据与展示配置。</p>
+      <form class="auth-form" id="authForm" autocomplete="on">
+        <div class="form-field">
+          <label for="authUser">用户名</label>
+          <input class="control" id="authUser" name="username" autocomplete="username" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-field">
+          <label for="authPass">密码</label>
+          <input class="control" id="authPass" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
+        </div>
+        <div class="form-field hidden" id="authPass2Field">
+          <label for="authPass2">确认密码</label>
+          <input class="control" id="authPass2" type="password" autocomplete="new-password" placeholder="再次输入密码">
+        </div>
+        <div id="authError" class="auth-error hidden"></div>
+        <button class="btn btn-primary" id="authSubmit" type="submit" style="height:40px;margin-top:2px">登录</button>
+      </form>
+      <div class="auth-foot">公网前台只读 · 后台操作会记录审计日志</div>
+    </div>
+  </div>
+
+  <div id="adminApp" class="admin-shell hidden">
+    <aside class="admin-sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <span class="brand-name">转介绍看板</span>
+        <span class="brand-sub">管理后台</span>
+      </a>
+      <nav class="admin-nav" aria-label="后台导航">
+        <button class="admin-nav-item active" data-section="overview" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span>概览</span>
+        </button>
+        <button class="admin-nav-item" data-section="records" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 9h16M8 13h8M8 16h5"/></svg>
+          <span>数据管理</span>
+        </button>
+        <button class="admin-nav-item" data-section="import" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <span>数据导入</span>
+        </button>
+        <button class="admin-nav-item" data-section="bases" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/></svg>
+          <span>基地管理</span>
+        </button>
+        <button class="admin-nav-item" data-section="accounts" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          <span>基地账号</span>
+        </button>
+        <button class="admin-nav-item" data-section="settings" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+          <span>展示配置</span>
+        </button>
+        <button class="admin-nav-item" data-section="versions" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>
+          <span>版本记录</span>
+        </button>
+        <button class="admin-nav-item" data-section="feishu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2M8 11h8M8 15h5"/></svg>
+          <span>飞书同步</span>
+        </button>
+        <button class="admin-nav-item" data-section="audit" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h2"/><path d="M5 3h14v18H5z"/></svg>
+          <span>操作日志</span>
+        </button>
+      </nav>
+      <div class="admin-sidebar-foot">
+        <div class="admin-user">
+          <div class="avatar" id="avatar">管</div>
+          <div>
+            <div class="admin-user-name" id="adminName">管理员</div>
+            <div class="admin-user-role">超级管理员</div>
+          </div>
+        </div>
+        <div class="flex gap-8" style="margin-top:8px">
+          <a class="btn btn-sm" href="/" style="flex:1" target="_blank" rel="noopener">查看前台</a>
+          <button class="btn btn-sm" id="logoutBtn" type="button">退出</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <h1 id="sectionTitle">后台概览</h1>
+          <p id="sectionSub">数据版本、导入记录与最近操作</p>
+        </div>
+        <div class="head-meta">
+          <span class="meta-chip"><span class="dot"></span><span id="adminUpdated">—</span></span>
+          <button class="btn btn-primary btn-sm" id="quickImport" type="button">导入数据</button>
+        </div>
+      </div>
+
+      <section class="admin-section active" id="section-overview">
+        <div class="admin-grid">
+          <div class="stat-card"><div class="stat-label">当前名单总量</div><div class="stat-value" id="statTotal">—</div><div class="stat-foot" id="statTotalFoot">已发布版本</div></div>
+          <div class="stat-card"><div class="stat-label">基地数量</div><div class="stat-value" id="statBases">—</div><div class="stat-foot">启用中的基地</div></div>
+          <div class="stat-card"><div class="stat-label">当前版本</div><div class="stat-value" id="statVersion" style="font-size:19px;line-height:1.5">—</div><div class="stat-foot" id="statVersionFoot">—</div></div>
+          <div class="stat-card"><div class="stat-label">管理员</div><div class="stat-value" id="statUsers">—</div><div class="stat-foot">可登录账号</div></div>
+        </div>
+        <div class="grid-2 equal">
+          <div class="admin-card">
+            <div class="admin-card-head"><div><h2>最近版本</h2><p>发布与回滚记录</p></div><button class="btn btn-sm" data-goto="versions" type="button">全部版本</button></div>
+            <div class="table-wrap"><table class="data-table" id="recentVersions"><thead><tr><th>版本</th><th>条数</th><th>发布时间</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-head"><div><h2>最近操作</h2><p>后台审计日志</p></div><button class="btn btn-sm" data-goto="audit" type="button">全部日志</button></div>
+            <div class="table-wrap"><table class="data-table" id="recentLogs"><thead><tr><th>操作</th><th>操作人</th><th>时间</th></tr></thead><tbody></tbody></table></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-records">
+        <div class="admin-card">
+          <div class="records-toolbar">
+            <div class="field"><label for="adminBase">基地</label><select class="control" id="adminBase"><option value="all">全部基地</option></select></div>
+            <div class="field"><label for="adminSource">来源</label><select class="control" id="adminSource"><option value="all">全部来源</option><option value="新用户直推未转化">新用户直推未转化</option><option value="高潜老用户">高潜老用户</option></select></div>
+            <div class="field"><label for="adminStatus">状态</label><select class="control" id="adminStatus"><option value="all">全部状态</option><option value="待跟进">待跟进</option><option value="跟进中">跟进中</option><option value="已转化">已转化</option><option value="暂缓">暂缓</option></select></div>
+            <div class="field"><input class="control search" id="adminSearch" type="search" placeholder="搜索姓名 / 手机 / 负责人"></div>
+            <div class="filter-spacer"></div>
+            <button class="btn btn-sm" id="adminReset" type="button">重置</button>
+            <button class="btn btn-primary btn-sm" id="addRecordBtn" type="button">新增名单</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="adminRecordsTable">
+              <thead><tr><th>基地</th><th>客户</th><th>手机号</th><th>来源</th><th>负责人</th><th>状态</th><th style="text-align:right">操作</th></tr></thead>
+              <tbody><tr><td colspan="7"><div class="skeleton skeleton-line"></div></td></tr></tbody>
+            </table>
+          </div>
+          <div class="table-footer"><span id="adminPageInfo">—</span><div class="pager" id="adminPager"></div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-import">
+        <div class="import-steps">
+          <div class="import-step active"><b>1</b>上传文件</div>
+          <div class="import-step"><b>2</b>校验预览</div>
+          <div class="import-step"><b>3</b>发布版本</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-head"><div><h2>导入名单文件</h2><p>支持 xlsx / xls / csv，自动识别「基地、姓名、手机号、来源类型、负责人、状态、日期」等列</p></div><a class="btn btn-sm" href="/api/template.xlsx" download>下载导入模板</a></div>
+          <div class="form-grid" style="margin-bottom:16px">
+            <div class="form-field">
+              <label for="importBase">默认基地（表格没有基地列时使用）</label>
+              <select class="control" id="importBase"><option value="">请选择</option></select>
+            </div>
+            <div class="form-field">
+              <label for="importSource">默认来源类型</label>
+              <select class="control" id="importSource"><option value="新用户直推未转化">新用户直推未转化</option><option value="高潜老用户">高潜老用户</option></select>
+            </div>
+          </div>
+          <div class="dropzone" id="dropzone" tabindex="0">
+            <div class="dropzone-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+            <h3>点击选择文件，或拖拽到此处</h3>
+            <p>单次建议不超过 5,000 行 / 15MB；导入前会先预览，不会直接覆盖线上数据</p>
+          </div>
+          <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" class="hidden">
+        </div>
+        <div class="admin-card hidden" id="previewCard">
+          <div class="admin-card-head"><div><h2>校验预览</h2><p id="previewFileName">—</p></div><button class="btn btn-sm" id="cancelPreview" type="button">重新选择</button></div>
+          <div class="import-summary" id="importSummary"></div>
+          <div id="importErrors"></div>
+          <div class="preview-table table-wrap"><table class="data-table" id="previewTable"><thead></thead><tbody></tbody></table></div>
+          <div class="form-grid mt-16">
+            <div class="form-field full"><label for="versionLabel">版本名称</label><input class="control" id="versionLabel" placeholder="例如：2026-10 武汉基地转介绍名单"></div>
+            <div class="form-field full">
+              <label>导入方式</label>
+              <div class="check-grid">
+                <label class="check-item"><input type="radio" name="importMode" value="append" checked> 追加到当前版本（保留原数据，自动跳过重复）</label>
+                <label class="check-item"><input type="radio" name="importMode" value="replace"> 替换全部数据（仅保留本次文件）</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" id="cancelPreview2" type="button">取消</button>
+            <button class="btn btn-primary" id="commitImport" type="button">发布为新版本</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-bases">
+        <div class="admin-card">
+          <div class="admin-card-head"><div><h2>基地管理</h2><p>基地名称、排序与主题色会同步到前台筛选和图表</p></div><button class="btn btn-primary btn-sm" id="addBaseBtn" type="button">新增基地</button></div>
+          <div class="table-wrap"><table class="data-table" id="basesTable"><thead><tr><th>基地</th><th>编码</th><th>主题色</th><th>名单数</th><th>排序</th><th>状态</th><th style="text-align:right">操作</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-accounts">
+        <div class="admin-card">
+          <div class="admin-card-head">
+            <div><h2>基地登录账号</h2><p>每个基地一个账号，只能查看本基地数据；管理员可重置密码或停用账号</p></div>
+          </div>
+          <div class="notice" style="margin-bottom:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+            <div>初始账号密码已导出到服务器 <b>data/base-accounts.csv</b>，请妥善保管。重置密码后，新密码只显示一次。</div>
+          </div>
+          <div class="table-wrap"><table class="data-table" id="accountsTable"><thead><tr><th>基地</th><th>登录账号</th><th>状态</th><th>最近登录</th><th style="text-align:right">操作</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-settings">
+        <div class="admin-card">
+          <div class="admin-card-head"><div><h2>展示配置</h2><p>修改后立即影响前台展示，不会改动历史数据</p></div></div>
+          <form id="settingsForm">
+            <div class="form-grid">
+              <div class="form-field"><label for="setTitle">看板标题</label><input class="control" id="setTitle"></div>
+              <div class="form-field"><label for="setSubtitle">副标题</label><input class="control" id="setSubtitle"></div>
+              <div class="form-field full"><label for="setAnnouncement">顶部公告（留空不显示）</label><textarea class="control" id="setAnnouncement" placeholder="例如：本期数据更新至 2026-10-19，请各基地及时跟进。"></textarea></div>
+              <div class="form-field full"><label for="setDataNote">数据说明</label><textarea class="control" id="setDataNote"></textarea></div>
+              <div class="form-field full">
+                <label>前台展示的 KPI</label>
+                <div class="check-grid" id="kpiChecks"></div>
+              </div>
+              <div class="form-field full">
+                <label>明细页展示列</label>
+                <div class="check-grid" id="columnChecks"></div>
+              </div>
+            </div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">保存配置</button></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-versions">
+        <div class="admin-card">
+          <div class="admin-card-head"><div><h2>版本记录</h2><p>每次导入都会生成新版本；切换版本即可回滚前台数据</p></div></div>
+          <div class="table-wrap"><table class="data-table" id="versionsTable"><thead><tr><th>版本</th><th>来源文件</th><th>条数</th><th>发布人</th><th>发布时间</th><th>状态</th><th style="text-align:right">操作</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-feishu">
+        <div class="admin-card">
+          <div class="admin-card-head">
+            <div><h2>飞书多维表格同步</h2><p>管理员在飞书里维护数据，点击立即同步后只读展示</p></div>
+            <button class="btn btn-primary btn-sm" id="feishuSyncBtn" type="button">立即同步</button>
+          </div>
+          <div class="notice" style="margin-bottom:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+            <div>App ID / App Secret 只能配置在服务器环境变量中；多维表格 ID 和 7 个表 ID 也通过环境变量配置。详细步骤见项目 <b>FEISHU.md</b>。</div>
+          </div>
+          <div id="feishuStatus" class="feishu-status">正在读取飞书配置…</div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="section-audit">
+        <div class="admin-card">
+          <div class="admin-card-head"><div><h2>操作日志</h2><p>最近 200 条后台操作记录</p></div></div>
+          <div class="table-wrap"><table class="data-table" id="auditTable"><thead><tr><th>时间</th><th>操作人</th><th>操作</th><th>详情</th><th>IP</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><h2 id="modalTitle">编辑</h2><button class="modal-close" id="modalClose" type="button" aria-label="关闭">✕</button></div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="/assets/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+services:
+  dashboard:
+    build: .
+    container_name: referral-dashboard
+    restart: unless-stopped
+    environment:
+      PORT: "4310"
+      HOST: "0.0.0.0"
+      SESSION_SECRET: ${SESSION_SECRET}
+      NODE_ENV: production
+      FEISHU_APP_ID: ${FEISHU_APP_ID:-}
+      FEISHU_APP_SECRET: ${FEISHU_APP_SECRET:-}
+      FEISHU_APP_TOKEN: ${FEISHU_APP_TOKEN:-}
+      FEISHU_TABLE_DIRECT: ${FEISHU_TABLE_DIRECT:-}
+      FEISHU_TABLE_ASSIGNED: ${FEISHU_TABLE_ASSIGNED:-}
+      FEISHU_TABLE_HIGH: ${FEISHU_TABLE_HIGH:-}
+      FEISHU_TABLE_DIAMOND: ${FEISHU_TABLE_DIAMOND:-}
+      FEISHU_TABLE_RANK_CONSULTANT: ${FEISHU_TABLE_RANK_CONSULTANT:-}
+      FEISHU_TABLE_RANK_SUPERVISOR: ${FEISHU_TABLE_RANK_SUPERVISOR:-}
+      FEISHU_TABLE_RANK_LEADER: ${FEISHU_TABLE_RANK_LEADER:-}
+      FEISHU_SYNC_INTERVAL_SECONDS: ${FEISHU_SYNC_INTERVAL_SECONDS:-60}
+    volumes:
+      - ./data:/app/data
+    expose:
+      - "4310"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: referral-caddy
+    restart: unless-stopped
+    depends_on:
+      - dashboard
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3b82f6">
+  <title>业绩排行 · 转介绍数据看板</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
+        </span>
+        <span class="brand-name" id="brandName">转介绍数据看板</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link" href="/#overview">总览</a>
+        <a class="nav-link" href="/#compare" id="compareNav">基地对比</a>
+        <a class="nav-link" href="/tables">专项明细</a>
+        <a class="nav-link active" href="/rankings">业绩排行</a>
+        <a class="nav-link" href="/records">明细名单</a>
+      </nav>
+      <div class="header-user">
+        <span class="meta-chip viewer-chip" id="viewerChip">管理员 · 全部基地</span>
+        <a class="header-action" href="/admin" id="adminLink">后台管理</a>
+        <button class="header-action" id="logoutBtn" type="button">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">业绩排行</h1>
+        <p class="page-sub">辅导直推业绩 · 主管团队 · 组长团队</p>
+      </div>
+      <div class="head-meta">
+        <span class="meta-chip"><span class="dot"></span><span id="rankUpdated">数据截止 9.30</span></span>
+      </div>
+    </div>
+
+    <div id="globalError" class="error-banner hidden"></div>
+
+    <div class="rank-summary" id="rankSummary"></div>
+
+    <div class="table-tabs" id="rankTabs">
+      <button class="table-tab active" type="button" data-key="consultant">辅导业绩榜</button>
+      <button class="table-tab" type="button" data-key="supervisor">主管团队榜</button>
+      <button class="table-tab" type="button" data-key="leader">组长团队榜</button>
+    </div>
+
+    <div class="rank-card">
+      <div class="rank-titlebar">
+        <div>
+          <div class="rank-title" id="rankTitle">—</div>
+          <div class="rank-sub" id="rankSub">—</div>
+        </div>
+        <div class="rank-actions">
+          <button class="btn btn-sm" id="copyRank" type="button">复制表格</button>
+          <button class="btn btn-sm" id="exportRank" type="button">导出 CSV</button>
+        </div>
+      </div>
+      <div class="rank-note" id="rankNote"></div>
+      <div class="sheet-scroll">
+        <table class="rank-table" id="rankTable">
+          <thead id="rankHead"></thead>
+          <tbody id="rankBody"><tr><td><div class="skeleton skeleton-line"></div></td></tr></tbody>
+        </table>
+      </div>
+      <div class="sheet-foot" id="rankFoot">—</div>
+    </div>
+
+    <footer class="page-foot">
+      <div>业绩数据仅供内部参考，以最终核算为准；排行榜仅管理员可见。</div>
+    </footer>
+  </main>
+
+  <script src="/assets/rankings.js"></script>
+</body>
+</html>
