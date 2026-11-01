@@ -13,4 +13,4 @@ RUN mkdir -p /app/data
 
 EXPOSE 4310
 VOLUME ["/app/data"]
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "node scripts/bootstrap.js && node server.js"]
